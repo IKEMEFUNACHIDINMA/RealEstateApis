@@ -1,6 +1,8 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
+import com.example.realestateapis.exceptions.HandleUserDoesNotExistException;
 import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.UserRepository;
 import com.example.realestateapis.service.UserService;
@@ -34,5 +36,17 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(newUser);
         return newUser;
+    }
+
+    @Override
+    public String login(Logindto user) {
+        User existing = userRepository.findByEmailIgnoreCase(String.valueOf(user.getEmail()))
+                .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
+
+        if (!existing.getPassword().equals(user.getPassword())) {
+            throw new HandleUserDoesNotExistException("Wrong password");
+        }
+        return existing.getEmail();
+
     }
 }
