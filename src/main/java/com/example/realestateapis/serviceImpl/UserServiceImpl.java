@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
         User existing = userRepository.findByEmailIgnoreCase(String.valueOf(user.getEmail()))
                 .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
 
+
         if (!existing.getPassword().equals(user.getPassword())) {
             throw new HandleUserDoesNotExistException("Wrong password");
         }
