@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public RegisterDto registerUser(RegisterDto registerDto) {
-        RegisterDto newUser = new RegisterDto();
+    public User registerUser(RegisterDto registerDto) {
+        User newUser = new User();
         newUser.setUsername(registerDto.getUsername());
         String password = passwordEncoder.encode(registerDto.getPassword());
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
