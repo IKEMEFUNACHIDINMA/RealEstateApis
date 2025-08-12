@@ -44,10 +44,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
 
 
-        if (!existing.getPassword().equals(user.getPassword())) {
-            throw new HandleUserDoesNotExistException("Wrong password");
+         if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
+            throw new HandleUserDoesNotExistException("Invalid password");
         }
-        return existing.getEmail();
+        return "Login successful";
 
     }
 }
