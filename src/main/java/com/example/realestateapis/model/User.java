@@ -28,8 +28,10 @@ public class User implements UserDetails {
     private String id;
 
     @NotBlank
-    @Column(unique = true)
-    private String username;
+    private String surname;
+
+    @NotBlank
+    private String firstname;
 
     @NotBlank(message = "password must be included")
     @Size(max = 8, message = "password must be up to 8 characters")

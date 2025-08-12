@@ -27,7 +27,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerUser(RegisterDto registerDto) {
         User newUser = new User();
-        newUser.setUsername(registerDto.getUsername());
+        newUser.setSurname(registerDto.getSurname());
+        newUser.setFirstname(registerDto.getFirstname());
         String password = passwordEncoder.encode(registerDto.getPassword());
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         System.out.println(password);
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
          if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
             throw new HandleUserDoesNotExistException("Invalid password");
         }
-        return "Login successful";
+        return "Login Successful!";
 
     }
 }
