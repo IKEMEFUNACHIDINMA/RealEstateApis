@@ -27,6 +27,4 @@ public class UserController {
         String token = userservice.login(user);
         return ResponseEntity.ok(token);
     }
-
-
 }
