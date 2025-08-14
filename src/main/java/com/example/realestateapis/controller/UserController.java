@@ -2,20 +2,24 @@ package com.example.realestateapis.controller;
 
 import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
+import com.example.realestateapis.model.Property;
 import com.example.realestateapis.model.User;
+import com.example.realestateapis.service.PropertyService;
 import com.example.realestateapis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userservice;
+
+    @Autowired
+    private PropertyService propertyService;
 
     @PostMapping("/signup")
     public User registerUser(@RequestBody RegisterDto registerDto) {
@@ -26,6 +30,16 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Logindto user) {
         String token = userservice.login(user);
         return ResponseEntity.ok(token);
+    }
+
+    @GetMapping ("/getProperties")
+    public List<Property> getProperty() {
+        return propertyService.getAllProperty();
+    }
+
+    @PostMapping("/createProperty")
+    public Property createProperty(@RequestBody Property property) {
+        return propertyService.createProperty(property);
     }
 
 
