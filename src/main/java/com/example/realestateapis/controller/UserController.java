@@ -18,9 +18,6 @@ public class UserController {
     @Autowired
     private UserService userservice;
 
-    @Autowired
-    private PropertyService propertyService;
-
     @PostMapping("/signup")
     public User registerUser(@RequestBody RegisterDto registerDto) {
         userservice.registerUser(registerDto);
@@ -31,16 +28,5 @@ public class UserController {
         String token = userservice.login(user);
         return ResponseEntity.ok(token);
     }
-
-    @GetMapping ("/getProperties")
-    public List<Property> getProperty() {
-        return propertyService.getAllProperty();
-    }
-
-    @PostMapping("/createProperty")
-    public Property createProperty(@RequestBody Property property) {
-        return propertyService.createProperty(property);
-    }
-
 
 }
