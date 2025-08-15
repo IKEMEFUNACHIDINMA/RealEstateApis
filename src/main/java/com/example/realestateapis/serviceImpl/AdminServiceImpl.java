@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService {
     public String AdminLogin(Logindto admin) {
         Admin existing = adminRepository.findByEmailIgnoreCase(String.valueOf(admin.getEmail()))
                 .orElse(null);
-        String result = "User details was not found";
+        String result = "Admin was not found";
         if (existing != null) {
             if (!passwordEncoder.matches(admin.getPassword(), existing.getPassword())) {
                 result = "Incorrect password";

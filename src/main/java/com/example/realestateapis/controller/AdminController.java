@@ -15,11 +15,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/register")
-    public String registerUser(@RequestBody Admin admin) {
-        adminService.registerAdmin(admin);
-        return "Admin successfully registered";
-    }
     @PostMapping("/login")
     public String AdminLogin(@RequestBody Logindto admin){
         return adminService.AdminLogin(admin);
