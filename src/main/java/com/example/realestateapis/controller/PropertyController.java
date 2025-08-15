@@ -13,13 +13,15 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
-    @GetMapping("/getProperties")
+    @GetMapping("/get")
     public List<Property> getProperty() {
+
         return propertyService.getAllProperty();
     }
 
-    @PostMapping("/createProperty")
+    @PostMapping("/create")
     public Property createProperty(@RequestBody Property property) {
+
         return propertyService.createProperty(property);
     }
 
