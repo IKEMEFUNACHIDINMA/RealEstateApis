@@ -15,18 +15,6 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
-    public Admin registerAdmin(Admin admin) {
-        Admin newAdmin = new Admin();
-        newAdmin.setEmployeeId(admin.getEmployeeId());
-        newAdmin.setUsername(admin.getUsername());
-        newAdmin.setEmail(admin.getEmail());
-        newAdmin.setPhonenumber(admin.getPhonenumber());
-        String Password = passwordEncoder.encode(admin.getPassword());
-        newAdmin.setPassword(Password);
-        adminRepository.save(newAdmin);
-        return newAdmin;
-    }
 
     @Override
     public String AdminLogin(Logindto admin) {
