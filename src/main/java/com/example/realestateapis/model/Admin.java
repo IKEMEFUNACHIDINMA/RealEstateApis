@@ -1,21 +1,17 @@
 package com.example.realestateapis.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Document
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
-@NoArgsConstructor
-public class Admin{
-    @Id
-    private String id;
-    private String email;
-    private String password;
+public class Admin extends User {
+    @NotBlank
+    private String employeeId;
 }

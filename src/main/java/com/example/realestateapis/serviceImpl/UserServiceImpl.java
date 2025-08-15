@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setUsername(registerDto.getUsername());
         String password = passwordEncoder.encode(registerDto.getPassword());
-        newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        newUser.setPassword(password);
         System.out.println(password);
         newUser.setEmail(registerDto.getEmail());
         newUser.setPhonenumber(registerDto.getPhonenumber());
