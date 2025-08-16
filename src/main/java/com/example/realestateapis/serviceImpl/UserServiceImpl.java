@@ -34,7 +34,14 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(registerDto.getEmail());
         newUser.setPhonenumber(registerDto.getPhonenumber());
 
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
+
+        RegisterDto response = new RegisterDto();
+        response.setUsername(newUser.getUsername());
+        response.setPassword("********");
+        response.setEmail(newUser.getEmail());
+        response.setPhonenumber(newUser.getPhonenumber());
+        return response;
 
     }
 
