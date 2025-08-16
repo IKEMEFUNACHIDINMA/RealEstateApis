@@ -1,11 +1,11 @@
 package com.example.realestateapis.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
-public class EmailDto {
+public class SendConfirmationDto {
+    private String email;
+    private String phonenumber;
 }
