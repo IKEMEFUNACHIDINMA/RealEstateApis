@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterDto registerUser(RegisterDto registerDto) {
-        User newUser = new RegisterDto();
+        User newUser = new User();
         newUser.setUsername(registerDto.getUsername());
         String password = passwordEncoder.encode(registerDto.getPassword());
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(registerDto.getEmail());
         newUser.setPhonenumber(registerDto.getPhonenumber());
 
-        userRepository.save(newUser);
-        return newUser;
+        return userRepository.save(newUser);
+
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         if (!existing.getPassword().equals(user.getPassword())) {
             throw new HandleUserDoesNotExistException("Wrong password");
         }
-        return existing.getEmail();
+        return jwtServiceImpl.generateToken(existing);
 
     }
 }
