@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String property_type;
     private String property_information;
@@ -22,7 +22,4 @@ public class Property {
     private String property_size;
     private String property_image;
 
-    private String title;
-    private Long price;
-    private boolean isSold = false;
 }

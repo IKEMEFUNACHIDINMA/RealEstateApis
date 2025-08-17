@@ -35,14 +35,7 @@ public class UserServiceImpl implements UserService {
         newUser.setPhonenumber(registerDto.getPhonenumber());
 
         userRepository.save(newUser);
-
-        RegisterDto response = new RegisterDto();
-        response.setUsername(newUser.getUsername());
-        response.setPassword("********");
-        response.setEmail(newUser.getEmail());
-        response.setPhonenumber(newUser.getPhonenumber());
-        return response;
-
+        return newUser;
     }
 
     @Override
@@ -54,7 +47,7 @@ public class UserServiceImpl implements UserService {
         if (!existing.getPassword().equals(user.getPassword())) {
             throw new HandleUserDoesNotExistException("Wrong password");
         }
-        return jwtServiceImpl.generateToken(existing);
+        return existing.getEmail();
 
     }
 }
