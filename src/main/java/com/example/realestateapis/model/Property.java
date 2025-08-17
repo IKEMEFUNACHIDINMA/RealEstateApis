@@ -1,35 +1,34 @@
 package com.example.realestateapis.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Getter
-@Setter
-@Document(collection = "property_db")
+@Document(collection = "properties")
 public class Property {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @NotBlank
+    @NotNull
     private String property_type;
-    @NotBlank
+
+    @NotNull
     private String property_information;
-    @NotBlank
+
+    @NotNull
     private String no_of_rooms;
-    @NotBlank
+
+    @NotNull
     private String no_of_bathrooms;
-    @NotBlank
+
+    @NotNull
     private String size_of_property;
-    @NotBlank
-    private String property_price;
-    @NotBlank
+
+    @NotNull
+    private Long property_price;
+
+    @NotNull
     private String property_image;
 }
