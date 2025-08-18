@@ -2,9 +2,11 @@ package com.example.realestateapis.serviceImpl;
 
 import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
+import com.example.realestateapis.dto.SendConfirmationDto;
 import com.example.realestateapis.exceptions.HandleUserDoesNotExistException;
 import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.UserRepository;
+import com.example.realestateapis.service.ConfirmationService;
 import com.example.realestateapis.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +26,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ConfirmationService  confirmationService;
+
     @Override
     public User registerUser(RegisterDto registerDto) {
         User newUser = new User();
-        newUser.setUsername(registerDto.getUsername());
+        newUser.setSurname(registerDto.getSurname());
+        newUser.setFirstname(registerDto.getFirstname());
         String password = passwordEncoder.encode(registerDto.getPassword());
         newUser.setPassword(password);
         System.out.println(password);
         newUser.setEmail(registerDto.getEmail());
         newUser.setPhonenumber(registerDto.getPhonenumber());
 
+        SendConfirmationDto sendConfirmationDto = new SendConfirmationDto();
+        sendConfirmationDto.setEmail(registerDto.getEmail());
+        sendConfirmationDto.setPhonenumber(registerDto.getPhonenumber());
+
+
         userRepository.save(newUser);
+        confirmationService.sendConfirmation(sendConfirmationDto);
         return newUser;
     }
 
@@ -47,7 +59,7 @@ public class UserServiceImpl implements UserService {
          if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
             throw new HandleUserDoesNotExistException("Invalid password");
         }
-        return "Login successful";
+        return "Login Successful!";
 
     }
 }
