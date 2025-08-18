@@ -26,6 +26,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/v3/api-docs",
                                 "/swagger-resources/**",
+                                "/payments/**",
                                 "/webjars/**").permitAll()
                         .anyRequest().permitAll()
                 )
