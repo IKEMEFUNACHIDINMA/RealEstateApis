@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
          if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
             throw new HandleUserDoesNotExistException("Invalid password");
         }
-        return "Login Successful!";
+        return jwtServiceImpl.generateToken(existing);
 
     }
 }

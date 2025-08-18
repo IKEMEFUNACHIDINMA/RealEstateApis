@@ -28,12 +28,14 @@ public class PaymentController {
     }
 
     @PostMapping("/buy/{propertyId}")
-    public ResponseEntity<?> initializeTransaction(@PathVariable String propertyId,
-                                                   @RequestParam String email) {
+    public ResponseEntity<?> initializeTransaction(@PathVariable String propertyId
+                                                   ) {
         Property property = propertyRepository.findById(propertyId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
 
         long amountKobo = property.getProperty_price() * 100;
+        String email = property.getEmail();
+
 
         Map<String, Object> response =
                 paystackService.initializeTransaction(email, amountKobo);

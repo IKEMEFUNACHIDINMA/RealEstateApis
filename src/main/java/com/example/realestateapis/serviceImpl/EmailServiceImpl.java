@@ -33,9 +33,9 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = javamailSender.createMimeMessage();
             var mailMessage = new MimeMessageHelper(message);
             mailMessage.setFrom(fromAddress, senderName);
-            mailMessage.setTo(emailDto.getRecipient());
+//            mailMessage.setTo(emailDto.getRecipient());
             mailMessage.setSubject(emailDto.getSubject());
-            mailMessage.setText(emailDto.getMessageBody(), true);
+//            mailMessage.setText(emailDto.getMessageBody(), true);
             javamailSender.send(message);
 
         } catch (MessagingException | UnsupportedEncodingException e){

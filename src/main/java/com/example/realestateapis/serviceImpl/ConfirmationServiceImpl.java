@@ -36,13 +36,13 @@ public class ConfirmationServiceImpl implements ConfirmationService {
         confirmation.setPhonenumber(sendConfirmationDto.getPhonenumber());
         confirmationRepository.save(confirmation);
 
-        String message = EmailContent.confirmationEmail();
-        EmailDto emailDto = EmailDto.builder()
-                .recipient(user.get().getEmail())
-                .subject("Account Verification")
-                .messageBody(message)
-                .build();
-        emailService.sendConfirmationEmail(emailDto);
+//     String message = EmailContent.confirmationEmail();
+//     EmailDto emailDto = EmailDto.builder()
+//                .recipient(user.get().getEmail())
+//                .subject("Account Verification")
+//                .messageBody(message)
+//                .build();
+//        emailService.sendConfirmationEmail(emailDto);
 
         return "";
     }

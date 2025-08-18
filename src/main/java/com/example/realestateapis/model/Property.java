@@ -1,6 +1,7 @@
 package com.example.realestateapis.model;
 
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +14,9 @@ public class Property {
 
     @NotNull
     private String property_type;
+
+   @Email
+   private String email;
 
     @NotNull
     private String property_information;
@@ -31,4 +35,8 @@ public class Property {
 
     @NotNull
     private String property_image;
+
+    private String title;
+    private Long price;
+    private boolean isSold = false;
 }

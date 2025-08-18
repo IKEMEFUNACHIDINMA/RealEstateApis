@@ -34,6 +34,7 @@ public class PropertyServiceImpl implements PropertyService {
         newProperty.setSize_of_property(property.getSize_of_property());
         newProperty.setNo_of_rooms(property.getNo_of_rooms());
         newProperty.setNo_of_bathrooms(property.getNo_of_bathrooms());
+        newProperty.setEmail(property.getEmail());
 
         propertyRepository.save(newProperty);
         return newProperty;
