@@ -14,6 +14,7 @@ FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
 COPY --from=builder /app/target/*.jar app.jar
 
+
 # ✅ Activate the 'production' profile
 ENTRYPOINT ["java", "-jar", "/app.jar", "--spring.profiles.active=production"]
 
