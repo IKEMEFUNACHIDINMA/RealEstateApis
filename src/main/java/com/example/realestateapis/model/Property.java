@@ -1,9 +1,7 @@
 package com.example.realestateapis.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,15 +9,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "properties")
 public class Property {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    @NotNull
     private String property_type;
+
+    @NotNull
     private String property_information;
+
+    @NotNull
     private String no_of_rooms;
+
+    @NotNull
     private String no_of_bathrooms;
+
+    @NotNull
     private String size_of_property;
-    private String property_size;
+
+    @NotNull
+    private Long property_price;
+
+    @NotNull
     private String property_image;
 
     private String title;

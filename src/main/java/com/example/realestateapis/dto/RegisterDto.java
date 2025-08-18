@@ -11,7 +11,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class RegisterDto {
 
-    public String username;
+    public String surname;
+    public String firstname;
     public String email;
     public String password;
     public String phonenumber;
