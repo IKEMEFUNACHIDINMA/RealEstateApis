@@ -6,6 +6,7 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -DskipTests
 
+
 # Copy source and build
 COPY . .
 RUN mvn clean package
