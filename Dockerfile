@@ -7,7 +7,7 @@ RUN mvn dependency:go-offline -DskipTests
 
 # Copy source and build
 COPY . .
-RUN mvn clean package -DskipTests
+RUN mvn clean package
 
 # Stage 2: Lightweight JDK image
 FROM eclipse-temurin:17-jdk-alpine
