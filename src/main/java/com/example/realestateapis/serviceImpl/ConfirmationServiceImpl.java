@@ -1,5 +1,6 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.dto.EmailDto;
 import com.example.realestateapis.dto.SendConfirmationDto;
 import com.example.realestateapis.exceptions.HandleUserDoesNotExistException;
 import com.example.realestateapis.model.Confirmation;
@@ -8,6 +9,7 @@ import com.example.realestateapis.repository.ConfirmationRepository;
 import com.example.realestateapis.repository.UserRepository;
 import com.example.realestateapis.service.ConfirmationService;
 import com.example.realestateapis.service.EmailService;
+import com.example.realestateapis.utils.EmailContent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

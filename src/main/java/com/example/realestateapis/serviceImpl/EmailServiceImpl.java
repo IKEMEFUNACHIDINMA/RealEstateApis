@@ -1,5 +1,6 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.dto.EmailDto;
 import com.example.realestateapis.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

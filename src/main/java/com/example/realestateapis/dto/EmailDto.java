@@ -1,10 +1,18 @@
 package com.example.realestateapis.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Builder
+@Getter
+@Setter
 public class EmailDto {
-    private String to;
+    private String recipient;
     private String subject;
-    private String body;
+    private String messageBody;
+    private String attachment;
+
+
 }
