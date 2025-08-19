@@ -1,6 +1,5 @@
 package com.example.realestateapis.serviceImpl;
 
-import com.example.realestateapis.model.Admin;
 import com.example.realestateapis.model.Property;
 import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.PropertyRepository;
@@ -12,6 +11,7 @@ import java.util.List;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
+
     @Autowired
     private PropertyRepository propertyRepository;
 
@@ -40,8 +40,17 @@ public class PropertyServiceImpl implements PropertyService {
         return newProperty;
     }
 
-    private boolean isAdmin(User user){
-        return true;
+    @Override
+    public void buyProperty(Long propertyId, String buyerEmail) {
+        Property property = propertyRepository.findById(propertyId)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+
+        property.setEmail(buyerEmail);
+
+        propertyRepository.save(property);
     }
 
+    private boolean isAdmin(User user) {
+        return true;
+    }
 }
