@@ -25,11 +25,11 @@ public class PropertyController {
     public Property createProperty(@RequestBody Property property) {
         return propertyService.createProperty(property);
     }
-//
-//    @PostMapping("/buy/{id}")
-//    public ResponseEntity<?> buyProperty(@PathVariable String id, Principal principal) {
-//        String buyerEmail = principal.getName(); // email from JWT
-//        propertyService.buyProperty(id, buyerEmail);
-//        return ResponseEntity.ok("Property bought successfully by " + buyerEmail);
-//    }
+
+    @PostMapping("/buy/{id}")
+    public ResponseEntity<?> buyProperty(@PathVariable String id, Principal principal) {
+        String buyerEmail = principal.getName(); // email from JWT
+        propertyService.buyProperty(id, buyerEmail);
+        return ResponseEntity.ok("Property bought successfully by " + buyerEmail);
+    }
 }

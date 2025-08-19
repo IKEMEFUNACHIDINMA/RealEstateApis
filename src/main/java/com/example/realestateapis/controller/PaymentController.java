@@ -68,5 +68,8 @@ public class PaymentController {
 
         return ResponseEntity.ok(payments);
     }
-
+//    @PostMapping("/verify/purchase/{reference}")
+//    public ResponseEntity<?> verifyTransaction(@PathVariable String reference) {
+//        return null;
+//    }
 }

@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Locale;
+
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -35,7 +37,9 @@ public class SecurityConfig {
                                 "/v3/api-docs",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/property/**"
+                                "/property/**",
+                                "/admin/**",
+                                "/payments/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
