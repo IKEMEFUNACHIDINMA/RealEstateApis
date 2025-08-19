@@ -27,6 +27,7 @@ public class AdminServiceImpl implements AdminService {
         newAdmin.setPhonenumber(admin.getPhonenumber());
         String password = passwordEncoder.encode(admin.getPassword());
         newAdmin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        newAdmin.setUserType(admin.getUserType());
         System.out.println(password);
 
         adminRepository.save(newAdmin);
