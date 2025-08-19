@@ -3,6 +3,7 @@ package com.example.realestateapis.controller;
 import com.example.realestateapis.model.Admin;
 import com.example.realestateapis.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,5 +18,11 @@ public class AdminController {
     @PostMapping("/signup")
     public Admin registerAdmin(@RequestBody Admin admin){
         return adminService.registerAdmin(admin);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginAdmin(@RequestBody Admin admin){
+        String token = adminService.adminLogin(admin);
+        return ResponseEntity.ok(token);
     }
 }

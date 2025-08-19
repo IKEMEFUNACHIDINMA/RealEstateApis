@@ -1,11 +1,12 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.exceptions.HandleUserDoesNotExistException;
 import com.example.realestateapis.model.Admin;
 import com.example.realestateapis.repository.AdminRepository;
 import com.example.realestateapis.service.AdminService;
-import jakarta.persistence.Access;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private final JwtServiceImpl jwtServiceImpl;
 
     @Override
     public Admin registerAdmin(Admin admin) {
@@ -31,5 +35,15 @@ public class AdminServiceImpl implements AdminService {
 
         adminRepository.save(newAdmin);
         return newAdmin;
+    }
+    @Override
+    public String adminLogin(Admin admin) {
+        Admin existing = adminRepository.findByEmailIgnoreCase(String.valueOf(admin.getEmail()))
+                .orElseThrow(() -> new HandleUserDoesNotExistException("Admin was not found"));
+
+        if (!passwordEncoder.matches(admin.getPassword(), existing.getPassword())) {
+            throw new HandleUserDoesNotExistException("Incorrect password");
+        }
+        return jwtServiceImpl.generateToken((UserDetails) existing);
     }
 }
