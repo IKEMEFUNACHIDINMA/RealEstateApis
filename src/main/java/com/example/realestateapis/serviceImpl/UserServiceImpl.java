@@ -2,11 +2,9 @@ package com.example.realestateapis.serviceImpl;
 
 import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
-import com.example.realestateapis.dto.SendConfirmationDto;
 import com.example.realestateapis.exceptions.HandleUserDoesNotExistException;
 import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.UserRepository;
-import com.example.realestateapis.service.ConfirmationService;
 import com.example.realestateapis.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,28 +24,25 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private ConfirmationService  confirmationService;
-
     @Override
-    public User registerUser(RegisterDto registerDto) {
+    public RegisterDto registerUser(RegisterDto registerDto) {
         User newUser = new User();
-        newUser.setSurname(registerDto.getSurname());
-        newUser.setFirstname(registerDto.getFirstname());
+        newUser.setUsername(registerDto.getUsername());
         String password = passwordEncoder.encode(registerDto.getPassword());
-        newUser.setPassword(password);
+        newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         System.out.println(password);
         newUser.setEmail(registerDto.getEmail());
         newUser.setPhonenumber(registerDto.getPhonenumber());
 
-        SendConfirmationDto sendConfirmationDto = new SendConfirmationDto();
-        sendConfirmationDto.setEmail(registerDto.getEmail());
-        sendConfirmationDto.setPhonenumber(registerDto.getPhonenumber());
-
-
         userRepository.save(newUser);
-        confirmationService.sendConfirmation(sendConfirmationDto);
-        return newUser;
+
+        RegisterDto response = new RegisterDto();
+        response.setUsername(newUser.getUsername());
+        response.setPassword("********");
+        response.setEmail(newUser.getEmail());
+        response.setPhonenumber(newUser.getPhonenumber());
+        return response;
+
     }
 
     @Override
@@ -56,10 +51,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
 
 
-         if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
-            throw new HandleUserDoesNotExistException("Invalid password");
+        if (!existing.getPassword().equals(user.getPassword())) {
+            throw new HandleUserDoesNotExistException("Wrong password");
         }
-        return "Login Successful!";
+        return jwtServiceImpl.generateToken(existing);
 
     }
 }

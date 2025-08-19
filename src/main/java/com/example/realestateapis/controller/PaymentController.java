@@ -1,24 +1,43 @@
 package com.example.realestateapis.controller;
 
-import com.example.realestateapis.service.PaymentService;
-import lombok.RequiredArgsConstructor;
+
+import com.example.realestateapis.model.Property;
+import com.example.realestateapis.repository.PropertyRepository;
+import com.example.realestateapis.service.PaystackService;
+import com.example.realestateapis.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/payment")
-@RequiredArgsConstructor
+@RequestMapping("/payments")
 public class PaymentController {
-    @Autowired
-    private final PaymentService paymentService;
 
-    @GetMapping("/verify")
-    public Mono<Map<String, Object>> verify(@RequestParam String reference) {
-        return paymentService.verifyPayment(reference);
+    @Autowired
+    private PropertyRepository propertyRepository;
+
+    @Autowired
+    private PaystackService  paystackService;
+
+    public PaymentController(PaystackService paystackService, PropertyRepository propertyRepository) {
+        this.paystackService = paystackService;
+        this.propertyRepository = propertyRepository;
+    }
+
+    @PostMapping("/buy/{propertyid}")
+    public ResponseEntity<?> initializeTransaction(@PathVariable("propertyid") Long propertyid,
+                                                @RequestParam String email) {
+        Property property = propertyRepository.findById(propertyid)
+                .orElseThrow(() -> new RuntimeException("property not found"));
+
+        Long amountKobo = property.getPrice() * 100;
+
+
+        Map<String, Object> response =
+                paystackService.initializeTransaction(email, amountKobo);
+
+        return ResponseEntity.ok("Property Purchased, Thank youu!");
     }
 }
