@@ -11,5 +11,5 @@ public interface PropertyService {
 
     Property createProperty(Property property);
 
-    void buyProperty(Long propertyId, String buyerEmail);
+    void buyProperty(String propertyId, String buyerEmail);
 }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(Logindto user) {
-        User existing = userRepository.findByEmailIgnoreCase(String.valueOf(user.getEmail()))
+        User existing = userRepository.findByEmail(String.valueOf(user.getEmail()))
                 .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
 
 
@@ -61,5 +63,10 @@ public class UserServiceImpl implements UserService {
         }
         return jwtServiceImpl.generateToken(existing);
 
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 }

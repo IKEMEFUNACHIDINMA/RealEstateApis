@@ -28,7 +28,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 
     @Override
     public String sendConfirmation(SendConfirmationDto sendConfirmationDto) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByEmailIgnoreCase(sendConfirmationDto.getEmail()).orElseThrow(() -> new HandleUserDoesNotExistException("User not found")));
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(sendConfirmationDto.getEmail()).orElseThrow(() -> new HandleUserDoesNotExistException("User not found")));
 
         Confirmation confirmation = new Confirmation();
         confirmation.setEmail(sendConfirmationDto.getEmail());

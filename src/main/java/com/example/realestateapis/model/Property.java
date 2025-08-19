@@ -36,5 +36,5 @@ public class Property {
     @NotNull
     private String property_image;
 
-    private boolean isSold = false;
+    private boolean isSold = true;
 }

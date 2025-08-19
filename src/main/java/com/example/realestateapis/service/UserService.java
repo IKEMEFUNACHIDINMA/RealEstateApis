@@ -4,7 +4,8 @@ import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
 import com.example.realestateapis.model.User;
 
-import java.lang.ScopedValue;
+//import java.lang.ScopedValue;
+import java.util.Optional;
 
 public interface UserService {
     //REGISTER SIGN UP
@@ -12,5 +13,6 @@ public interface UserService {
 
     //LOGIN
     String login (Logindto user);
+    Optional<User> findByEmail(String email);
 
 }
