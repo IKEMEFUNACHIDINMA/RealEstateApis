@@ -68,5 +68,12 @@ public class PaymentController {
 
         return ResponseEntity.ok(payments);
     }
+    @PostMapping("/verify/payment")
+    public ResponseEntity<Map<String, Object>> verifyPayment(
+            @RequestBody String reference,
+            @RequestBody String email) {
 
+        Map<String, Object> result = paystackService.verifyTransaction(reference, email);
+        return ResponseEntity.ok(result);
+    }
 }
