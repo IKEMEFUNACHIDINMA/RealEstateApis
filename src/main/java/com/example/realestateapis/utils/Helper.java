@@ -28,7 +28,8 @@ public class Helper {
         final String authHeader = request.getHeader("Authorization");
         String jwt = authHeader.substring(7);
         String email = jwtService.extractUsername(jwt);
-        return userRepository.findByEmailIgnoreCase(email).orElseThrow(()-> new HandleUserDoesNotExistException("Customer not found"));
+        return userRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(()-> new HandleUserDoesNotExistException("Customer not found"));
     }
 
     public Admin extractLoggedInAdmin(HttpServletRequest request){
