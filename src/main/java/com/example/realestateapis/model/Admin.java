@@ -1,9 +1,11 @@
 package com.example.realestateapis.model;
 
+import com.example.realestateapis.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -28,6 +30,8 @@ public class Admin {
 
     @NotBlank
     private String firstname;
+
+    private UserType userType;
 
     @NotBlank
     @Size(max = 10, message = "password must be up to 8 characters")

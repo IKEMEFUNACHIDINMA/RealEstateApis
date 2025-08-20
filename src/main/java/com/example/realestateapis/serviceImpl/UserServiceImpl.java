@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         System.out.println(password);
         newUser.setEmail(registerDto.getEmail());
         newUser.setPhonenumber(registerDto.getPhonenumber());
+        newUser.setUserType(newUser.getUserType());
 
         SendConfirmationDto sendConfirmationDto = new SendConfirmationDto();
         sendConfirmationDto.setEmail(registerDto.getEmail());
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 
         userRepository.save(newUser);
-        confirmationService.sendConfirmation(sendConfirmationDto);
+        confirmationService.sendRegistration(sendConfirmationDto);
         return newUser;
     }
 

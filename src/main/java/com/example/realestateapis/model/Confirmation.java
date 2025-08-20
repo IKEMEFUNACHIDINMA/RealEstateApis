@@ -2,6 +2,7 @@ package com.example.realestateapis.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -18,6 +19,7 @@ public class Confirmation {
 
     @Id
     private String id;
+
     private String email;
     private String phonenumber;
     @Indexed(name = "CreatedDateIndex", expireAfter = "5m")

@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javamailSender;
 
-    private static final String senderName = "Property link.ng";
+    private static final String senderName = "Enulux.ng";
 
     @Value("${mail.from.address}")
     private String fromAddress;
@@ -33,9 +33,9 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = javamailSender.createMimeMessage();
             var mailMessage = new MimeMessageHelper(message);
             mailMessage.setFrom(fromAddress, senderName);
-//            mailMessage.setTo(emailDto.getRecipient());
+            mailMessage.setTo(emailDto.getRecipient());
             mailMessage.setSubject(emailDto.getSubject());
-//            mailMessage.setText(emailDto.getMessageBody(), true);
+            mailMessage.setText(emailDto.getMessageBody(), true);
             javamailSender.send(message);
 
         } catch (MessagingException | UnsupportedEncodingException e){

@@ -1,9 +1,11 @@
 package com.example.realestateapis.model;
 
+import com.example.realestateapis.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -40,6 +42,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
 
+    private UserType userType;
     @Column(unique = true)
     @NotNull(message = "Mobile must be included")
     @Size(max = 10, message = "mobile must be 10 numbers")

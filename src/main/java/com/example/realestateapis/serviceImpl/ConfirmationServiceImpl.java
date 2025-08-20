@@ -27,8 +27,9 @@ public class ConfirmationServiceImpl implements ConfirmationService {
     private EmailService emailService;
 
     @Override
-    public String sendConfirmation(SendConfirmationDto sendConfirmationDto) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(sendConfirmationDto.getEmail()).orElseThrow(() -> new HandleUserDoesNotExistException("User not found")));
+    public String sendRegistration(SendConfirmationDto sendConfirmationDto) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmailIgnoreCase(sendConfirmationDto.getEmail())
+                .orElseThrow(() -> new HandleUserDoesNotExistException("User not found")));
 
         Confirmation confirmation = new Confirmation();
         confirmation.setEmail(sendConfirmationDto.getEmail());
@@ -36,13 +37,35 @@ public class ConfirmationServiceImpl implements ConfirmationService {
         confirmation.setPhonenumber(sendConfirmationDto.getPhonenumber());
         confirmationRepository.save(confirmation);
 
-//     String message = EmailContent.confirmationEmail();
-//     EmailDto emailDto = EmailDto.builder()
-//                .recipient(user.get().getEmail())
-//                .subject("Account Verification")
-//                .messageBody(message)
-//                .build();
-//        emailService.sendConfirmationEmail(emailDto);
+     String message = EmailContent.registrationEmail();
+     EmailDto emailDto = EmailDto.builder()
+                .recipient(user.get().getEmail())
+                .subject("Account Verification")
+                .messageBody(message)
+                .build();
+        emailService.sendConfirmationEmail(emailDto);
+
+        return "";
+    }
+
+    @Override
+    public String sendBooking(SendConfirmationDto sendConfirmationDto) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmailIgnoreCase(sendConfirmationDto.getEmail())
+                .orElseThrow(() -> new HandleUserDoesNotExistException("User not found")));
+
+        Confirmation confirmation = new Confirmation();
+        confirmation.setEmail(sendConfirmationDto.getEmail());
+        confirmation.setId(user.get().getId());
+        confirmation.setPhonenumber(sendConfirmationDto.getPhonenumber());
+        confirmationRepository.save(confirmation);
+
+     String message = EmailContent.bookingEmail();
+     EmailDto emailDto = EmailDto.builder()
+                .recipient(user.get().getEmail())
+                .subject("Booking Purchase Successful")
+                .messageBody(message)
+                .build();
+        emailService.sendConfirmationEmail(emailDto);
 
         return "";
     }
