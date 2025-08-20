@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(Logindto user) {
-        User existing = userRepository.findByEmail(String.valueOf(user.getEmail()))
+        User existing = userRepository.findByEmailIgnoreCase(String.valueOf(user.getEmail()))
                 .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
 
 
@@ -68,6 +68,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByEmailIgnoreCase(String email){
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmailIgnoreCase(email);
     }
 }

@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface PropertyForSaleRepository extends MongoRepository<PropertyForSale, Long> {
+public interface PropertyForSaleRepository extends MongoRepository<PropertyForSale, String> {
     List<PropertyForSale> findByApprovedTrueAndStatus(String status);
 }

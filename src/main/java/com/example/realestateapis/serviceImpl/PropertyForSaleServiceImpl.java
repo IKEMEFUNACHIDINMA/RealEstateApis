@@ -34,8 +34,7 @@ public class PropertyForSaleServiceImpl implements PropertyForSaleService {
 
     @Override
     public PropertyForSale approveProperty(String id) {
-        Long propertyId = Long.parseLong(id); // since DB id is Long
-        PropertyForSale property = propertyForSaleRepository.findById(propertyId)
+        PropertyForSale property = propertyForSaleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
         property.setApproved(true);
@@ -51,9 +50,9 @@ public class PropertyForSaleServiceImpl implements PropertyForSaleService {
 
     @Override
     public PropertyForSale markAsSold(String id, String email) {
-        Long propertyId = Long.parseLong(id);
-        PropertyForSale property = propertyForSaleRepository.findById(propertyId)
+        PropertyForSale property = propertyForSaleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
+
 
         if (!property.getEmailAddress().equalsIgnoreCase(email)) {
             throw new RuntimeException("You are not the owner of this property");
