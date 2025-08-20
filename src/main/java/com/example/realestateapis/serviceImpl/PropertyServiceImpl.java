@@ -1,6 +1,6 @@
 package com.example.realestateapis.serviceImpl;
 
-import com.example.realestateapis.UserType;
+import com.example.realestateapis.enums.UserType;
 import com.example.realestateapis.model.Admin;
 import com.example.realestateapis.model.Property;
 import com.example.realestateapis.model.User;
