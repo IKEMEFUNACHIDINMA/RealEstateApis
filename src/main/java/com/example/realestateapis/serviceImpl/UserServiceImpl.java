@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
 
         userRepository.save(newUser);
-        confirmationService.sendConfirmation(sendConfirmationDto);
+        confirmationService.sendRegistration(sendConfirmationDto);
         return newUser;
     }
 
