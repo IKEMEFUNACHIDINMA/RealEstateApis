@@ -13,6 +13,6 @@ public interface UserService {
 
     //LOGIN
     String login (Logindto user);
-    Optional<User> findByEmail(String email);
+    Optional<User> findByEmailIgnoreCase(String email);
 
 }
