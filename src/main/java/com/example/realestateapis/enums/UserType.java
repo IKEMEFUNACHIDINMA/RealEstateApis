@@ -1,4 +1,4 @@
-package com.example.realestateapis;
+package com.example.realestateapis.enums;
 
 public enum UserType {
     USER, ADMIN

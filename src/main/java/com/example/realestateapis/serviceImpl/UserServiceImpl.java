@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
 
         userRepository.save(newUser);
-        confirmationService.sendConfirmation(sendConfirmationDto);
+        confirmationService.sendRegistration(sendConfirmationDto);
         return newUser;
     }
 
@@ -62,5 +64,10 @@ public class UserServiceImpl implements UserService {
         }
         return jwtServiceImpl.generateToken(existing);
 
+    }
+
+    @Override
+    public Optional<User> findByEmailIgnoreCase(String email){
+        return userRepository.findByEmailIgnoreCase(email);
     }
 }
