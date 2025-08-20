@@ -1,5 +1,6 @@
 package com.example.realestateapis.model;
 
+import com.example.realestateapis.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,7 +9,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -40,6 +40,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
 
+    private UserType userType;
     @Column(unique = true)
     @NotNull(message = "Mobile must be included")
     @Size(max = 10, message = "mobile must be 10 numbers")

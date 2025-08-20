@@ -1,10 +1,14 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.enums.UserType;
 import com.example.realestateapis.model.Admin;
 import com.example.realestateapis.model.Property;
 import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.PropertyRepository;
 import com.example.realestateapis.service.PropertyService;
+import com.example.realestateapis.utils.Helper;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,8 @@ import java.util.List;
 public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
+    @Autowired
+    private Helper helper;
 
     @Override
     public List<Property> getAllProperty() {
@@ -21,10 +27,14 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Property createProperty(Property property) {
-        User user = new User();
-        if (!isAdmin(user)) {
-            System.out.println("Access Denied!");
+    public Property createProperty(Property property, HttpServletRequest request) throws BadRequestException {
+
+        Admin loggedInUser = helper.extractLoggedInAdmin(request);
+
+//        User user = new User();
+
+        if (!(loggedInUser.getUserType() == UserType.ADMIN)) {
+            throw new BadRequestException("Sorry only administrators can create a property");
         }
         Property newProperty = new Property();
         newProperty.setProperty_type(property.getProperty_type());
