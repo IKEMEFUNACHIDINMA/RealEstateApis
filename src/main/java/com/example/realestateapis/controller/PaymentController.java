@@ -2,9 +2,12 @@ package com.example.realestateapis.controller;
 
 import com.example.realestateapis.model.Payment;
 import com.example.realestateapis.model.Property;
+import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.PaymentRepository;
 import com.example.realestateapis.repository.PropertyRepository;
 import com.example.realestateapis.service.PaystackService;
+import com.example.realestateapis.utils.Helper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,32 +23,35 @@ public class PaymentController {
     private final PaystackService paystackService;
     private final PropertyRepository propertyRepository;
     private final PaymentRepository paymentRepository;
+    private final Helper helper;
 
     public PaymentController(PaystackService paystackService,
                              PropertyRepository propertyRepository,
-                             PaymentRepository paymentRepository) {
+                             PaymentRepository paymentRepository, Helper helper) {
         this.paystackService = paystackService;
         this.propertyRepository = propertyRepository;
         this.paymentRepository = paymentRepository;
+        this.helper = helper;
     }
 
     @PostMapping("/buy/{propertyId}")
     public ResponseEntity<?> initializeTransaction(@PathVariable String propertyId,
-                                                   Authentication authentication) {
+                                                   HttpServletRequest request) {
         Property property = propertyRepository.findById(propertyId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
 
         long amountKobo = property.getProperty_price() * 100;
-        String buyerEmail = authentication.getName();
+        User buyer = helper.extractLoggedInUser(request);
+        System.out.println(buyer.getEmail());
 
         Map<String, Object> response =
-                paystackService.initializeTransaction(buyerEmail, amountKobo);
+                paystackService.initializeTransaction(buyer.getEmail(), amountKobo);
 
         Map<String, Object> data = (Map<String, Object>) response.get("data");
         String reference = (String) data.get("reference");
 
         Payment payment = new Payment();
-        payment.setEmail(buyerEmail);
+        payment.setEmail(buyer.getEmail());
         payment.setAmount(amountKobo);
         payment.setStatus("pending");
         payment.setReference(reference);
