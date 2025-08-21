@@ -22,5 +22,4 @@ import java.util.List;
 @Getter
 @Setter
 public class Admin extends User {
-
 }
