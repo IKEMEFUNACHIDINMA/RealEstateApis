@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javamailSender;
 
-    private static final String senderName = "Enulux.ng";
+    private static final String senderName = "Enuluxe.ng";
 
     @Value("${mail.from.address}")
     private String fromAddress;
