@@ -30,6 +30,7 @@ public class AdminServiceImpl implements AdminService {
         newAdmin.setSurname(admin.getSurname());
         newAdmin.setFirstname(admin.getFirstname());
         newAdmin.setEmail(admin.getEmail());
+
         newAdmin.setPhonenumber(admin.getPhonenumber());
         String password = passwordEncoder.encode(admin.getPassword());
         newAdmin.setPassword(passwordEncoder.encode(admin.getPassword()));

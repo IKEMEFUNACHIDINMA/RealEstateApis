@@ -32,6 +32,7 @@ public class PropertyForSaleServiceImpl implements PropertyForSaleService {
         return propertyForSaleRepository.save(property);
     }
 
+
     @Override
     public PropertyForSale approveProperty(String id) {
         PropertyForSale property = propertyForSaleRepository.findById(id)
