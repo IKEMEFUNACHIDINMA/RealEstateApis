@@ -25,6 +25,7 @@ public class PropertyController {
         return propertyService.getAllProperty();
     }
 
+
     @PostMapping("/create")
     public Property createProperty(@RequestBody Property property, HttpServletRequest request) throws BadRequestException {
         Admin loggedInUser = helper.extractLoggedInAdmin(request);
