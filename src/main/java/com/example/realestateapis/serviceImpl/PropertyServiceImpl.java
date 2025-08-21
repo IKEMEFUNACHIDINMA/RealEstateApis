@@ -31,6 +31,7 @@ public class PropertyServiceImpl implements PropertyService {
 
         Admin loggedInUser = helper.extractLoggedInAdmin(request);
 
+
 //        User user = new User();
 
         if (!(loggedInUser.getUserType() == UserType.ADMIN)) {
@@ -48,10 +49,6 @@ public class PropertyServiceImpl implements PropertyService {
 
         propertyRepository.save(newProperty);
         return newProperty;
-    }
-
-    private boolean isAdmin(User user){
-        return true;
     }
 
 }

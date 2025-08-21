@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @NotBlank
     private String firstname;
 
+    @NotBlank
+    private String username;
+
     @NotBlank(message = "password must be included")
     @Size(max = 8, message = "password must be up to 8 characters")
     private String password;
@@ -79,5 +82,7 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+{
     }
 }
