@@ -18,9 +18,7 @@ public class PaystackServiceImpl implements PaystackService {
 
     public PaystackServiceImpl(RestTemplateBuilder builder,
                                @Value("${paystack.secret.key}") String secretKey,
-                               @Value("${paystack.base.url}") String baseUrl) {
-        System.out.println("✅ Paystack SecretKey: " + secretKey);
-        System.out.println("✅ Paystack BaseUrl: " + baseUrl);
+                               @Value("${paystack.base.url}") String baseUrl) { 
         this.baseUrl = baseUrl;
         this.restTemplate = builder
                 .defaultHeader("Authorization", "Bearer " + secretKey)
