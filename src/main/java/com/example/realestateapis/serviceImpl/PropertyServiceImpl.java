@@ -50,8 +50,4 @@ public class PropertyServiceImpl implements PropertyService {
         return newProperty;
     }
 
-    private boolean isAdmin(User user){
-        return true;
-    }
-
 }

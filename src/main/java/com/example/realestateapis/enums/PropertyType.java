@@ -1,5 +1,5 @@
 package com.example.realestateapis.enums;
 
 public enum PropertyType {
-    HOUSE
+    HOUSE, APARTMENT, LAND, COMMERCIAL, DUPLEX, BUNGALOW
 }
