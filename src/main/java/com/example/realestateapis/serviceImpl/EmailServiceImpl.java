@@ -24,7 +24,6 @@ public class EmailServiceImpl implements EmailService {
     @Value("${mail.from.address}")
     private String fromAddress;
 
-
     @Value("${mail.from.address}")
     private String senderEmail;
 
