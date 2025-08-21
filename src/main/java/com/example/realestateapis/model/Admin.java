@@ -11,31 +11,16 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Document(collection = "admin_db")
 @Getter
 @Setter
-public class Admin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String adminid;
-
-    @Column(unique = true)
-    private String email;
-
-    @NotBlank
-    private String surname;
-
-    @NotBlank
-    private String firstname;
-
-    private UserType userType;
-
-    @NotBlank
-    @Size(max = 10, message = "password must be up to 8 characters")
-    private String password;
-
-    private String phonenumber;
+public class Admin extends User {
 
 }

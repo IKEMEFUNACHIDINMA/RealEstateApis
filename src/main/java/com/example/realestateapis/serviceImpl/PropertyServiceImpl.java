@@ -31,6 +31,7 @@ public class PropertyServiceImpl implements PropertyService {
 
         Admin loggedInUser = helper.extractLoggedInAdmin(request);
 
+
 //        User user = new User();
 
         if (!(loggedInUser.getUserType() == UserType.ADMIN)) {

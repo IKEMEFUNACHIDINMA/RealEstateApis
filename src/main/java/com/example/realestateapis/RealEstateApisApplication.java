@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RealEstateApisApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(RealEstateApisApplication.class, args);
         System.out.println("Real Estate Api is running!");
     }
