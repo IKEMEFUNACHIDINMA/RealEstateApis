@@ -1,6 +1,10 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.dto.RegisterDto;
+import com.example.realestateapis.dto.SendConfirmationDto;
+import com.example.realestateapis.service.ConfirmationService;
 import com.example.realestateapis.service.PaystackService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +16,11 @@ import java.util.Map;
 
 @Service
 public class PaystackServiceImpl implements PaystackService {
+
+    @Autowired
+    private ConfirmationService confirmationService;
+
+    private RegisterDto registerDto;
 
     private final RestTemplate restTemplate;
     private final String baseUrl;
@@ -58,6 +67,11 @@ public class PaystackServiceImpl implements PaystackService {
         if (!email.equalsIgnoreCase(customerEmail)) {
             throw new RuntimeException("Email does not match transaction record");
         }
+        SendConfirmationDto sendConfirmationDto = new SendConfirmationDto();
+        sendConfirmationDto.setEmail(registerDto.getEmail());
+        sendConfirmationDto.setPhonenumber(registerDto.getPhonenumber());
+
+        confirmationService.sendBooking(sendConfirmationDto);
 
         return responseBody;
     }
