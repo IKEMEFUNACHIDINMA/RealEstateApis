@@ -117,8 +117,7 @@ public class PaymentController {
 
         Map<String, Object> customer = (Map<String, Object>) data.get("customer");
         String customerEmail = (String) customer.get("email");
-        System.out.println(customerEmail);
-        System.out.println(paystackDto.getEmail());
+
         if (!paystackDto.getEmail().equalsIgnoreCase(customerEmail)) {
             throw new RuntimeException("Email does not match transaction record");
         }
