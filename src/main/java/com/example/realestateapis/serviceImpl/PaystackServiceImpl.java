@@ -79,8 +79,8 @@ public class PaystackServiceImpl implements PaystackService {
 
 
         String customerEmail = (String) customer.get("email");
-        System.out.println(customerEmail);
-        System.out.println(paystackDto.getEmail());
+//        System.out.println(customerEmail);
+//        System.out.println(paystackDto.getEmail());
         if (!paystackDto.getEmail().equalsIgnoreCase(customerEmail)) {
             throw new RuntimeException("Email does not match transaction record");
         }
