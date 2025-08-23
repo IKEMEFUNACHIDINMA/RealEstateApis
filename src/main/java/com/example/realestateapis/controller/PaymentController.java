@@ -96,39 +96,8 @@ public class PaymentController {
 
     @GetMapping("/verify/{reference}")
     public ResponseEntity<Map> verifyPayment(@PathVariable String reference, @RequestBody PaystackDto paystackDto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(secretKey);
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
-        ResponseEntity<Map> response1 = restTemplate.exchange("https://api.paystack.co/transaction/verify/" + reference,
-                HttpMethod.GET,
-                entity,
-                Map.class
-        );
-
-//        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
-
-        Map<String, Object> responseBody = response1.getBody();
-
-        if (responseBody == null || !responseBody.containsKey("data")) {
-            throw new RuntimeException("Invalid response from Paystack");
-        }
-
-        Map<String, Object> data = (Map<String, Object>) responseBody.get("data");
-
-        Map<String, Object> customer = (Map<String, Object>) data.get("customer");
-        String customerEmail = (String) customer.get("email");
-
-        if (!paystackDto.getEmail().equalsIgnoreCase(customerEmail)) {
-            throw new RuntimeException("Email does not match transaction record");
-        }
-        SendConfirmationDto sendConfirmationDto = new SendConfirmationDto();
-        sendConfirmationDto.setEmail(paystackDto.getEmail());
-
-        confirmationService.sendBooking(sendConfirmationDto);
-
-        return response1;
+        return paystackService.verifyTransaction(reference, paystackDto);
     }
-//        return response;
 
 
 }
