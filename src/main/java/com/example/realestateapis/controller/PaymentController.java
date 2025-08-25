@@ -1,17 +1,22 @@
 package com.example.realestateapis.controller;
 
+import com.example.realestateapis.dto.PaystackDto;
+import com.example.realestateapis.dto.SendConfirmationDto;
 import com.example.realestateapis.model.Payment;
 import com.example.realestateapis.model.Property;
 import com.example.realestateapis.model.User;
 import com.example.realestateapis.repository.PaymentRepository;
 import com.example.realestateapis.repository.PropertyRepository;
+import com.example.realestateapis.service.ConfirmationService;
 import com.example.realestateapis.service.PaystackService;
 import com.example.realestateapis.utils.Helper;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -24,6 +29,10 @@ public class PaymentController {
     private final PropertyRepository propertyRepository;
     private final PaymentRepository paymentRepository;
     private final Helper helper;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private ConfirmationService confirmationService;
 
     public PaymentController(PaystackService paystackService,
                              PropertyRepository propertyRepository,
@@ -34,6 +43,8 @@ public class PaymentController {
         this.helper = helper;
     }
 
+    @Value("${paystack.secret.key}")
+    private String secretKey;
     @PostMapping("/buy/{propertyId}")
     public ResponseEntity<?> initializeTransaction(@PathVariable String propertyId,
                                                    HttpServletRequest request) {
@@ -74,12 +85,19 @@ public class PaymentController {
 
         return ResponseEntity.ok(payments);
     }
-    @PostMapping("/verify/payment")
-    public ResponseEntity<Map<String, Object>> verifyPayment(
-            @RequestBody String reference,
-            @RequestBody String email) {
+//    @PostMapping("/verify/payment")
+//    public ResponseEntity<Map<String, Object>> verifyPayment(
+//            @RequestBody String reference,
+//            @RequestBody String email) {
+//
+//        Map<String, Object> result = paystackService.verifyTransaction(reference, email);
+//        return ResponseEntity.ok(result);
+//    }
 
-        Map<String, Object> result = paystackService.verifyTransaction(reference, email);
-        return ResponseEntity.ok(result);
+    @GetMapping("/verify/{reference}")
+    public ResponseEntity<Map> verifyPayment(@PathVariable String reference, @RequestBody PaystackDto paystackDto) {
+        return paystackService.verifyTransaction(reference, paystackDto);
     }
+
+
 }
