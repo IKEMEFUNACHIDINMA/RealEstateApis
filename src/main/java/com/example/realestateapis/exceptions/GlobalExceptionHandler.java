@@ -12,4 +12,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 
     }
+    public ResponseEntity<String> handleFailedTransaction(HandleTransactionFailedException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
