@@ -49,6 +49,6 @@ public class AdminServiceImpl implements AdminService {
             throw new HandleUserDoesNotExistException("Invalid Password");
         }
 
-        return jwtServiceImpl.generateToken((UserDetails) existing);
+        return jwtServiceImpl.generateToken(existing);
     }
 }

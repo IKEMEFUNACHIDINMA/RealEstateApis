@@ -3,6 +3,7 @@ package com.example.realestateapis.serviceImpl;
 import com.example.realestateapis.dto.PaystackDto;
 import com.example.realestateapis.dto.RegisterDto;
 import com.example.realestateapis.dto.SendConfirmationDto;
+import com.example.realestateapis.exceptions.HandleTransactionFailedException;
 import com.example.realestateapis.service.ConfirmationService;
 import com.example.realestateapis.service.PaystackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,7 @@ public class PaystackServiceImpl implements PaystackService {
 
             confirmationService.sendBooking(sendConfirmationDto);
         } else {
-            throw new RuntimeException("Payment was not successful");
+            throw new HandleTransactionFailedException("Payment was not successful");
         }
 
 
