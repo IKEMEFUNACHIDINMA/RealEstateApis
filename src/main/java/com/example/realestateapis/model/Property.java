@@ -34,7 +34,8 @@ public class Property {
     private Long property_price;
 
     @NotNull
-    private String property_image;
+    private Long inspection_price;
 
-    private boolean isSold = true;
+    @NotNull
+    private String property_image;
 }

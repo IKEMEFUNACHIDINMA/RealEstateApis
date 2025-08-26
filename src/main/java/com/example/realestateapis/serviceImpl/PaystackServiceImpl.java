@@ -48,7 +48,6 @@ public class PaystackServiceImpl implements PaystackService {
         Map<String, Object> request = new HashMap<>();
         request.put("email", email);
         request.put("amount", amountKobo);
-
         ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
 
         return response.getBody();

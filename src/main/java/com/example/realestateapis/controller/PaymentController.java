@@ -51,7 +51,7 @@ public class PaymentController {
         Property property = propertyRepository.findById(propertyId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
 
-        long amountKobo = property.getProperty_price() * 100;
+        long amountKobo = property.getInspection_price() * 100;
         User buyer = helper.extractLoggedInUser(request);
         System.out.println(buyer.getEmail());
 

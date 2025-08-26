@@ -42,6 +42,7 @@ public class PropertyServiceImpl implements PropertyService {
         newProperty.setProperty_price(property.getProperty_price());
         newProperty.setProperty_information(property.getProperty_information());
         newProperty.setProperty_image(property.getProperty_image());
+        newProperty.setInspection_price(property.getInspection_price());
         newProperty.setSize_of_property(property.getSize_of_property());
         newProperty.setNo_of_rooms(property.getNo_of_rooms());
         newProperty.setNo_of_bathrooms(property.getNo_of_bathrooms());
