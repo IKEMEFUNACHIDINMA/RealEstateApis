@@ -1,5 +1,6 @@
 package com.example.realestateapis.service;
 
+import com.example.realestateapis.dto.LoginResponseDto;
 import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
 import com.example.realestateapis.model.User;
@@ -12,7 +13,7 @@ public interface UserService {
     User registerUser(RegisterDto registerDto);
 
     //LOGIN
-    String login (Logindto user);
+    LoginResponseDto login (Logindto user);
     Optional<User> findByEmailIgnoreCase(String email);
 
 }

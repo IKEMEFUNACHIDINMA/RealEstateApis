@@ -1,5 +1,6 @@
 package com.example.realestateapis.serviceImpl;
 
+import com.example.realestateapis.dto.LoginResponseDto;
 import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
 import com.example.realestateapis.dto.SendConfirmationDto;
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(Logindto user) {
+    public LoginResponseDto login(Logindto user) {
         User existing = userRepository.findByEmailIgnoreCase(String.valueOf(user.getEmail()))
                 .orElseThrow(() -> new HandleUserDoesNotExistException("User does not exist"));
 
@@ -64,7 +65,12 @@ public class UserServiceImpl implements UserService {
          if (!passwordEncoder.matches(user.getPassword(), existing.getPassword())) {
             throw new HandleUserDoesNotExistException("Invalid password");
         }
-        return jwtServiceImpl.generateToken(existing);
+         String token = jwtServiceImpl.generateToken(existing);
+         LoginResponseDto loginResponseDto = new LoginResponseDto();
+         loginResponseDto.setMessage("Login successful!");
+         loginResponseDto.setToken(token);
+
+         return loginResponseDto;
 
     }
 

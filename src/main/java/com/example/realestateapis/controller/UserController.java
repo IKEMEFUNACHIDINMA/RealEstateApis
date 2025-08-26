@@ -1,5 +1,6 @@
 package com.example.realestateapis.controller;
 
+import com.example.realestateapis.dto.LoginResponseDto;
 import com.example.realestateapis.dto.Logindto;
 import com.example.realestateapis.dto.RegisterDto;
 import com.example.realestateapis.model.Property;
@@ -25,8 +26,9 @@ public class UserController {
     }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Logindto user) {
-        String token = userservice.login(user);
-        return ResponseEntity.ok(token);
+//        LoginResponseDto token = userservice.login(user);
+//        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(userservice.login(user));
     }
 
 }
