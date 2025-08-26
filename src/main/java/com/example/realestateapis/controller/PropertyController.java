@@ -19,7 +19,7 @@ public class PropertyController {
     @Autowired
     private Helper helper;
 
-    @GetMapping("/buy")
+    @GetMapping("/get")
     public List<Property> getProperty() {
 
         return propertyService.getAllProperty();
